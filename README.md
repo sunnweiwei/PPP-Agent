@@ -2,7 +2,7 @@
 
 **PPP-Agent** is an open-source framework for training LLM agents that are not only productive (task success) but also **proactive** (ask essential clarifying questions) and **personalized** (adapt to diverse user preferences). It includes **UserVille**, an interactive environment that turns existing agent benchmarks into multi-turn, preference-aware simulations.
 
-> Paper: **Training Proactive and Personalized LLM Agents*  
+> **Training Proactive and Personalized LLM Agents**  
 > Author: Weiwei Sun, Xuhui Zhou, Weihua Du, Xingyao Wang, Sean Welleck, Graham Neubig, Maarten Sap, Yiming Yang
 
 ---
