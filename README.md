@@ -1,6 +1,6 @@
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/40754a32-5d12-4bbf-9df1-fa650a416874" alt="Logo" width="150">
+  <img src="https://github.com/user-attachments/assets/a2fa8cf1-86e4-4b83-a35d-1b353bc5b3a4" alt="Logo" width="150">
   <h1 align="center">PPP-Agent: Training Proactive and Personalized LLM Agents</h1>
 </div>
 
