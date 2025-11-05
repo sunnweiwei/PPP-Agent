@@ -1,4 +1,8 @@
-# PPP-Agent: Training Proactive and Personalized LLM Agents
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/40754a32-5d12-4bbf-9df1-fa650a416874" alt="Logo" width="150">
+  <h1 align="center">PPP-Agent: Training Proactive and Personalized LLM Agents</h1>
+</div>
 
 **PPP-Agent** is an open-source framework for training LLM agents that are not only productive (task success) but also **proactive** (ask essential clarifying questions) and **personalized** (adapt to diverse user preferences). It includes **UserVille**, an interactive environment that turns existing agent benchmarks into multi-turn, preference-aware simulations.
 
