@@ -4,7 +4,7 @@
 
 > **[Training Proactive and Personalized LLM Agents](https://arxiv.org/abs/2511.02208)**  
 > Author: Weiwei Sun, Xuhui Zhou, Weihua Du, Xingyao Wang, Sean Welleck, Graham Neubig, Maarten Sap, Yiming Yang  
-> [[Paper]](https://arxiv.org/abs/2511.02208)
+> [https://arxiv.org/pdf/2511.02208](https://arxiv.org/pdf/2511.02208)
 
 ---
 
