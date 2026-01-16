@@ -5,41 +5,42 @@
 
   [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
   [![arXiv](https://img.shields.io/badge/arXiv-2511.02208-b31b1b.svg)](https://arxiv.org/abs/2511.02208)
+  [![Model](https://img.shields.io/badge/🤗%20Hugging%20Face-PPP--36B-yellow.svg)](https://huggingface.co/sunweiwei/PPP-36B)
 </div>
 
-**PPP-Agent** is an open-source framework for training LLM agents that are not only productive (task success) but also **proactive** (ask essential clarifying questions) and **personalized** (adapt to diverse user preferences). It includes **UserVille**, an interactive environment that turns existing agent benchmarks into multi-turn, preference-aware simulations.
+**PPP-Agent** is an open-source framework for training LLM agents that are not only productive (task success) but also **proactive** (asking essential clarifying questions) and **personalized** (adapting to diverse user preferences). It includes **UserVille**, an interactive environment that turns existing agent benchmarks into multi-turn, preference-aware simulations.
 
 > **[Training Proactive and Personalized LLM Agents](https://arxiv.org/abs/2511.02208)**  
-> Author: Weiwei Sun, Xuhui Zhou, Weihua Du, Xingyao Wang, Sean Welleck, Graham Neubig, Maarten Sap, Yiming Yang  
+> Authors: Weiwei Sun, Xuhui Zhou, Weihua Du, Xingyao Wang, Sean Welleck, Graham Neubig, Maarten Sap, Yiming Yang  
 > [https://arxiv.org/pdf/2511.02208](https://arxiv.org/pdf/2511.02208)
 
 ---
 
 ## Highlights
 
-- **UserVille**: converts precise prompts into **vague** ones and simulates users with 20 configurable preferences.
-- **PPP RL**: multi-objective RL optimizing **Productivity, Proactivity, Personalization** jointly.
-- **Plug-and-Play Tools**: SWE (SWE-Bench & SWE-Gym) and Deep-Research (BrowseComp+) scaffolds.
-- **User-Centric Metrics**: effort-based proactivity + preference-following personalization.
-- **Generalization**: transfers to unseen preferences, simulators, and downstream tasks.
+- **UserVille**: Converts precise prompts into vague ones and simulates 20 user preferences.
+- **PPP RL**: Multi-objective RL optimizing Productivity, Proactivity, and Personalization.
+- **Tools**: Plug-and-play scaffolds for SWE (SWE-Bench, SWE-Gym) and Deep Research (BrowseComp+).
+- **Metrics**: Effort-based proactivity and preference-following personalization.
+- **Generalization**: Transfers to unseen preferences, simulators, and tasks.
 
 ---
 
 ## Model
 
-We release **PPP-36B**, a Seed-36B-Instruct model trained with our PPP RL framework: 🤗 [sunweiwei/PPP-36B](https://huggingface.co/sunweiwei/PPP-36B)
+**PPP-36B** is a Seed-36B-Instruct model trained with our PPP RL framework on SWE-Func-Loc tasks: 🤗 [sunweiwei/PPP-36B](https://huggingface.co/sunweiwei/PPP-36B)
 
 ---
 
 ## Evaluation
 
-**1. Start Repo Server**
+**1. Start the Repo Server**
 
 Download SWE-Bench repo data to `envs/gym_data`:
 ```bash
 cd envs
 python download_swe_repo.py --dataset princeton-nlp/SWE-bench_Verified --split test
-# download swe-gym data: python download_swe_repo.py --dataset SWE-Gym/SWE-Gym --split train
+# Download SWE-Gym data: python download_swe_repo.py --dataset SWE-Gym/SWE-Gym --split train
 ```
 
 Start the repo server
@@ -49,13 +50,13 @@ cd envs && python repo_server.py
 
 **2. Download Data**
 
-This contain the training and test data used in our experiment: https://drive.google.com/drive/folders/1yJHQckiRTkshF8SScZHUK3sjp9SpqW2x?usp=drive_link
+This contains the training and test data used in our experiments: https://drive.google.com/drive/folders/1yJHQckiRTkshF8SScZHUK3sjp9SpqW2x?usp=drive_link
 
 Place the downloaded parquet files in the `data/` directory.
 
 **3. Run Evaluation**
 
-Basic usage with OpenAI API:
+Basic usage with the OpenAI API:
 ```bash
 python scripts/eval_func_loc.py \
   --data_path data/test_ood.parquet \
@@ -88,7 +89,7 @@ python scripts/eval_func_loc.py --help
 
 **4. Evaluation with PPP-36B**
 
-To evaluate using vLLM with PPP-36B or other local models:
+To evaluate with vLLM using PPP-36B or other local models:
 
 **Note:** PPP-36B includes bias terms in attention output projections and requires a patch to serve correctly with vLLM.
 
@@ -110,6 +111,9 @@ python scripts/eval_func_loc.py \
 
 ---
 
+## Training
+
+---
 ## Cite
 
 If you find this work useful, please consider citing our paper:
@@ -129,8 +133,6 @@ If you find this work useful, please consider citing our paper:
 ## License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
-
-
 
 
 
