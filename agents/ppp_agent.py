@@ -17,7 +17,7 @@ async def process_item(
     ability = item.non_tensor_batch['ability'][0]
     # Select env
     EnvClass = select_env(ability, config, )
-    print(is_train, EnvClass)
+    # print(is_train, EnvClass)
     env = UserEnv(EnvClass(config, tokenizer, ability))
 
     try:
@@ -37,14 +37,14 @@ async def process_item(
     while iteration < max_turn:
         iteration += 1
         response = await agent.step()
-        print(response)
+        # print(response)
         if response is None:
             break
         observation = await run_action(env, response)
         if observation is None:
             break
-        print('\n'.join(observation.splitlines()[:3]))
-        print('=' * 100)
+        # print('\n'.join(observation.splitlines()[:3]))
+        # print('=' * 100)
         agent.append({'role': 'user', 'content': observation})
 
     print('[TASK] Task Finish, Start Reward')
@@ -57,8 +57,8 @@ async def process_item(
         print(f"[Error] Getting reward: {e}")
         score, reward_dict = ("", 0), {"ans_reward": 0.0, "format_reward": 0.0, "ref_reward": 0.0}
 
-    print(score)
-    print(reward_dict)
+    # print(score)
+    # print(reward_dict)
     out = await agent.get_data()
     agent_reward = score[1]
     out = AgentLoopOutput(
