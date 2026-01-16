@@ -34,7 +34,7 @@
 
 ## Evaluation
 
-**1. Start the Repo Server**
+### 1. Start the Repo Server
 
 Download SWE-Bench repo data to `envs/gym_data`:
 ```bash
@@ -48,13 +48,13 @@ Start the repo server
 cd envs && python repo_server.py
 ```
 
-**2. Download Data**
+### 2. Download Data
 
 This contains the training and test data used in our experiments: https://drive.google.com/drive/folders/1yJHQckiRTkshF8SScZHUK3sjp9SpqW2x?usp=drive_link
 
 Place the downloaded parquet files in the `data/` directory.
 
-**3. Run Evaluation**
+### 3. Run Evaluation
 
 Basic usage with the OpenAI API:
 ```bash
@@ -87,19 +87,18 @@ For all available arguments, run:
 python scripts/eval_func_loc.py --help
 ```
 
-**4. Evaluation with PPP-36B**
+### 4. Evaluation with PPP-36B
 
 To evaluate with vLLM using PPP-36B or other local models:
 
 **Note:** PPP-36B includes bias terms in attention output projections and requires a patch to serve correctly with vLLM.
 
 ```bash
-# Start vLLM server with the patch (included in scripts/)
+# Start vLLM server with the patch (scripts/patch_seed_oss.py)
 PYTHONPATH=scripts python -c "import patch_seed_oss" && vllm serve sunweiwei/PPP-36B --port 8000
 
-# In a new terminal, set environment variables and run evaluation
+# Set OPENAI_BASE_URL and run evaluation
 export OPENAI_BASE_URL=http://localhost:8000/v1
-export OPENAI_API_KEY=dummy  # vLLM doesn't require a real key
 
 python scripts/eval_func_loc.py \
   --data_path data/test_ood.parquet \
