@@ -3,7 +3,7 @@ import asyncio
 
 from verl import DataProto
 from .utils import Agent, select_env, TaskContext, run_action, AgentLoopOutput, AgentLoopMetrics
-
+from envs.userville import UserEnv
 
 async def process_item(
         item: DataProto,
@@ -18,7 +18,7 @@ async def process_item(
     # Select env
     EnvClass = select_env(ability, config, )
     print(is_train, EnvClass)
-    env = EnvClass(config, tokenizer, ability)
+    env = UserEnv(EnvClass(config, tokenizer, ability))
 
     try:
         await env.init_env(item)
@@ -41,9 +41,10 @@ async def process_item(
         if response is None:
             break
         observation = await run_action(env, response)
-        print(observation)
         if observation is None:
             break
+        print('\n'.join(observation.splitlines()[:3]))
+        print('=' * 100)
         agent.append({'role': 'user', 'content': observation})
 
     print('[TASK] Task Finish, Start Reward')
@@ -56,6 +57,8 @@ async def process_item(
         print(f"[Error] Getting reward: {e}")
         score, reward_dict = ("", 0), {"ans_reward": 0.0, "format_reward": 0.0, "ref_reward": 0.0}
 
+    print(score)
+    print(reward_dict)
     out = await agent.get_data()
     agent_reward = score[1]
     out = AgentLoopOutput(
@@ -67,11 +70,6 @@ async def process_item(
         metrics=AgentLoopMetrics(),
         reward_score=agent_reward,
         num_turns=out['num_turns'],
+        extra_fields=reward_dict
     )
     return out
-
-
-# @register_handler("agent/react_agent")
-# class ReActAgent(AsyncAgent):
-#     async def __call__(self, item: DataProto, context: TaskContext, **kwargs):
-#         return await process_single_batch(item, context)

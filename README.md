@@ -25,7 +25,88 @@
 
 ---
 
-## Stay Tuned
+## Model
+
+We release **PPP-36B**, a Seed-36B-Instruct model trained with our PPP RL framework: 🤗 [sunweiwei/PPP-36B](https://huggingface.co/sunweiwei/PPP-36B)
+
+---
+
+## Evaluation
+
+**1. Start Repo Server**
+
+Download SWE-Bench repo data to `envs/gym_data`:
+```bash
+cd envs
+python download_swe_repo.py --dataset princeton-nlp/SWE-bench_Verified --split test
+# download swe-gym data: python download_swe_repo.py --dataset SWE-Gym/SWE-Gym --split train
+```
+
+Start the repo server
+```bash
+cd envs && python repo_server.py
+```
+
+**2. Download Data**
+
+This contain the training and test data used in our experiment: https://drive.google.com/drive/folders/1yJHQckiRTkshF8SScZHUK3sjp9SpqW2x?usp=drive_link
+
+Place the downloaded parquet files in the `data/` directory.
+
+**3. Run Evaluation**
+
+Basic usage with OpenAI API:
+```bash
+python scripts/eval_func_loc.py \
+  --data_path data/test_ood.parquet \
+  --model_name gpt-4o-mini \
+  --local_repo_path /path/to/envs/gym_data \
+  --local_repo_url http://localhost:8011 \
+  --num_workers 1
+```
+
+Evaluate on multiple datasets:
+```bash
+python scripts/eval_func_loc.py \
+  --data_path data/test_ood.parquet data/test_id.parquet \
+  --model_name gpt-4o-mini \
+  --local_repo_path /path/to/envs/gym_data \
+  --local_repo_url http://localhost:8011 \
+  --num_workers 1
+```
+
+**Key arguments:**
+- `--local_repo_path`: Path to the gym_data directory
+- `--local_repo_url`: URL of the repo server
+- `--data_path`: One or more parquet files to evaluate
+- `--model_name`: Model to use for evaluation
+
+For all available arguments, run:
+```bash
+python scripts/eval_func_loc.py --help
+```
+
+**4. Evaluation with PPP-36B**
+
+To evaluate using vLLM with PPP-36B or other local models:
+
+**Note:** PPP-36B includes bias terms in attention output projections and requires a patch to serve correctly with vLLM.
+
+```bash
+# Start vLLM server with the patch (included in scripts/)
+PYTHONPATH=scripts python -c "import patch_seed_oss" && vllm serve sunweiwei/PPP-36B --port 8000
+
+# In a new terminal, set environment variables and run evaluation
+export OPENAI_BASE_URL=http://localhost:8000/v1
+export OPENAI_API_KEY=dummy  # vLLM doesn't require a real key
+
+python scripts/eval_func_loc.py \
+  --data_path data/test_ood.parquet \
+  --model_name sunweiwei/PPP-36B \
+  --local_repo_path /path/to/envs/gym_data \
+  --local_repo_url http://localhost:8011 \
+  --num_workers 1
+```
 
 ---
 
