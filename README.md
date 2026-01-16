@@ -112,6 +112,8 @@ python scripts/eval_func_loc.py \
 
 ## Training
 
+See `scripts/train_ppp.py` and `scripts/train_ppp.sh`
+
 ---
 ## Cite
 
