@@ -50,7 +50,7 @@ cd envs && python repo_server.py
 
 ### 2. Download Data
 
-This contains the training and test data used in our experiments: https://drive.google.com/drive/folders/1yJHQckiRTkshF8SScZHUK3sjp9SpqW2x?usp=drive_link
+This contains the training and test data used in our experiments: https://drive.google.com/drive/folders/1yJHQckiRTkshF8SScZHUK3sjp9SpqW2x?usp=sharing
 
 Place the downloaded parquet files in the `data/` directory.
 
